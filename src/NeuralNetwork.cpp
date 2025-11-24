@@ -8,7 +8,7 @@ NeuralNetwork::NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes)
       weightsHO(outputNodes, hiddenNodes),
       biasH(hiddenNodes, 1),
       biasO(outputNodes, 1),
-      learningRate(0.1) 
+      learningRate(0.1)
 {
     weightsIH.randomize();
     weightsHO.randomize();
@@ -16,18 +16,22 @@ NeuralNetwork::NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes)
     biasO.randomize();
 }
 
-double NeuralNetwork::sigmoid(double x) {
+double NeuralNetwork::sigmoid(double x)
+{
     return 1.0 / (1.0 + std::exp(-x));
 }
 
-double NeuralNetwork::dSigmoid(double y) {
+double NeuralNetwork::dSigmoid(double y)
+{
     // derivative of sigmoid is sigmoid(x) * (1 - sigmoid(x))
     // here y is already sigmoid(x)
     return y * (1.0 - y);
 }
 
-std::vector<double> NeuralNetwork::feedForward(const std::vector<double>& inputArray) {
-    if (inputArray.size() != inputNodes) {
+std::vector<double> NeuralNetwork::feedForward(const std::vector<double> &inputArray)
+{
+    if (inputArray.size() != inputNodes)
+    {
         throw std::invalid_argument("Input size does not match neural network input nodes");
     }
 
@@ -46,15 +50,18 @@ std::vector<double> NeuralNetwork::feedForward(const std::vector<double>& inputA
 
     // Convert back to vector
     std::vector<double> result;
-    for (int i = 0; i < outputs.getRows(); i++) {
+    for (int i = 0; i < outputs.getRows(); i++)
+    {
         result.push_back(outputs.at(i, 0));
     }
     return result;
 }
 
-Matrix NeuralNetwork::feedForward(const Matrix& inputMatrix) {
+Matrix NeuralNetwork::feedForward(const Matrix &inputMatrix)
+{
     // Batch processing: inputMatrix is (BatchSize x InputNodes)
-    if (inputMatrix.getCols() != inputNodes) {
+    if (inputMatrix.getCols() != inputNodes)
+    {
         throw std::invalid_argument("Input matrix columns must match input nodes");
     }
 
@@ -75,14 +82,16 @@ Matrix NeuralNetwork::feedForward(const Matrix& inputMatrix) {
     return outputs;
 }
 
-void NeuralNetwork::train(const std::vector<double>& inputArray, const std::vector<double>& targetArray) {
-    if (inputArray.size() != inputNodes || targetArray.size() != outputNodes) {
+void NeuralNetwork::train(const std::vector<double> &inputArray, const std::vector<double> &targetArray)
+{
+    if (inputArray.size() != inputNodes || targetArray.size() != outputNodes)
+    {
         throw std::invalid_argument("Input or Target size mismatch");
     }
 
     // --- Feed Forward ---
     Matrix inputs = Matrix::fromVector(inputArray);
-    
+
     Matrix hidden = weightsIH.multiply(inputs);
     hidden = hidden.add(biasH);
     hidden = hidden.map(sigmoid);

@@ -5,13 +5,14 @@
 #include <vector>
 #include <functional>
 
-class NeuralNetwork {
+class NeuralNetwork
+{
 public:
     NeuralNetwork(int inputNodes, int hiddenNodes, int outputNodes);
 
-    std::vector<double> feedForward(const std::vector<double>& inputArray);
-    Matrix feedForward(const Matrix& inputMatrix); // Batch processing
-    void train(const std::vector<double>& inputArray, const std::vector<double>& targetArray);
+    std::vector<double> feedForward(const std::vector<double> &inputArray);
+    Matrix feedForward(const Matrix &inputMatrix); // Batch processing
+    void train(const std::vector<double> &inputArray, const std::vector<double> &targetArray);
 
     void setLearningRate(double rate) { learningRate = rate; }
 

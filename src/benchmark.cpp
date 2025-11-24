@@ -4,14 +4,16 @@
 #include <chrono>
 #include <random>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
     // Parameters
     int input_size = 784;
     int hidden_size = 128;
     int output_size = 10;
     int num_samples = 10000;
 
-    if (argc > 1) {
+    if (argc > 1)
+    {
         num_samples = std::atoi(argv[1]);
     }
 
@@ -25,13 +27,15 @@ int main(int argc, char* argv[]) {
     // Generate random data
     std::cout << "Generating random data..." << std::endl;
     Matrix inputBatch(num_samples, input_size);
-    
+
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 1.0);
 
-    for (int i = 0; i < num_samples; ++i) {
-        for (int j = 0; j < input_size; ++j) {
+    for (int i = 0; i < num_samples; ++i)
+    {
+        for (int j = 0; j < input_size; ++j)
+        {
             inputBatch.at(i, j) = dis(gen);
         }
     }
